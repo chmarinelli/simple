@@ -1,7 +1,5 @@
+import { withVuetify } from '@socheatsok78/storybook-addon-vuetify/dist/decorators'
 import Vue from 'vue'
-import App from './App.vue'
-import store from './store'
-import vuetify from '@/plugins/vuetify'
 import * as rules from 'vee-validate/dist/rules'
 import {
   ValidationProvider,
@@ -9,8 +7,6 @@ import {
   extend,
   setInteractionMode
 } from 'vee-validate'
-
-Vue.config.productionTip = false
 
 configure({ bails: false });
 setInteractionMode('eager');
@@ -20,8 +16,17 @@ for (const rule in rules) {
 
 Vue.component('ValidationProvider', ValidationProvider);
 
-new Vue({
-  vuetify,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+export const parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+}
+
+
+export const decorators = [
+  withVuetify
+]
